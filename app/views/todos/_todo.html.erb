@@ -1,8 +1,10 @@
 <li class="<%= todo.completed ? 'completed' : '' %>">
   <div class="view">
-    <input class="toggle" type="checkbox" <%= todo.completed ? 'checked' : '' %>>
+    <%= check_box_tag "", "", todo.completed, class: "toggle", data: { params: "todo[completed]=#{!todo.completed}", url: todo_url(todo), remote: true, method: :patch } %>
     <label><%= todo.text %></label>
-    <button class="destroy"></button>
+    <%= form_for todo, remote: true, method: :delete do |f| %>
+      <%= button_tag "", class: "destroy" %>
+    <% end %>
   </div>
   <input class="edit" value="Create a TodoMVC template">
 </li>
