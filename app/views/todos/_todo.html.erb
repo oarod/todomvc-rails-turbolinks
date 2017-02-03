@@ -1,0 +1,8 @@
+<li class="<%= todo.completed ? 'completed' : '' %>">
+  <div class="view">
+    <input class="toggle" type="checkbox" <%= todo.completed ? 'checked' : '' %>>
+    <label><%= todo.text %></label>
+    <button class="destroy"></button>
+  </div>
+  <input class="edit" value="Create a TodoMVC template">
+</li>
