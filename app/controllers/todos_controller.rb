@@ -19,8 +19,20 @@ class TodosController < ApplicationController
     end
   end
 
+  def update_many
+    if Todo.update_all(todo_params.to_h)
+      redirect_to todos_url
+    end
+  end
+
   def destroy
     if @todo.destroy
+      redirect_to todos_url
+    end
+  end
+
+  def destroy_many
+    if Todo.where(id: params[:ids]).destroy_all
       redirect_to todos_url
     end
   end
