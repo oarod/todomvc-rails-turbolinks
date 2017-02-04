@@ -1,4 +1,4 @@
-<li class="<%= todo.completed ? 'completed' : '' %>">
+<li class="<%= todo.completed ? 'completed' : '' %>" data-behavior="begin_editing_on_dblclick">
   <div class="view">
     <%= check_box_tag "", "", todo.completed, class: "toggle", data: { params: "todo[completed]=#{!todo.completed}", url: todo_url(todo), remote: true, method: :patch } %>
     <label><%= todo.text %></label>
@@ -6,5 +6,7 @@
       <%= button_tag "", class: "destroy" %>
     <% end %>
   </div>
-  <input class="edit" value="Create a TodoMVC template">
+  <%= form_for todo, remote: true do |f| %>
+    <%= f.text_field :text, class: "edit", "data-behavior": "submit_on_blur end_editing_on_esc"  %>
+  <% end %>
 </li>
