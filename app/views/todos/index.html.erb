@@ -7,7 +7,7 @@
   </header>
   <% if @todos.present? || filter_params.present? %>
     <section class="main">
-      <%= check_box_tag "", "", @todos.all?(&:completed), class: "toggle-all", data: { params: "todo[completed]=#{@todos.none?(&:completed)}", url: update_many_todos_url, remote: true, method: :patch } %>
+      <%= check_box_tag "", "", @todos.all?(&:completed), class: "toggle-all", data: { params: "todo[completed]=#{!@todos.all?(&:completed)}", url: update_many_todos_url, remote: true, method: :patch } %>
       <label for="toggle-all">Mark all as complete</label>
       <ul class="todo-list">
         <%= render @todos %>
