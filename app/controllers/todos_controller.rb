@@ -20,15 +20,13 @@ class TodosController < ApplicationController
   end
 
   def update
-    if @todo.update(todo_params)
-      redirect_to todos_url
-    end
+    @todo.update(todo_params)
+    redirect_to todos_url
   end
 
   def update_many
-    if Todo.update_all(todo_params.to_h)
-      redirect_to todos_url
-    end
+    Todo.update_all(todo_params.to_h)
+    redirect_to todos_url
   end
 
   def destroy
