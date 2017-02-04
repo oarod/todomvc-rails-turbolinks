@@ -5,7 +5,7 @@
       <%= f.text_field :text, class: "new-todo", placeholder: "What needs to be done?", autofocus: true %>
     <% end %>
   </header>
-  <% if @todos.present? %>
+  <% if @todos.present? || filter_params.present? %>
     <section class="main">
       <%= check_box_tag "", "", @todos.all?(&:completed), class: "toggle-all", data: { params: "todo[completed]=#{@todos.none?(&:completed)}", url: update_many_todos_url, remote: true, method: :patch } %>
       <label for="toggle-all">Mark all as complete</label>
@@ -15,17 +15,10 @@
     </section>
     <footer class="footer">
       <span class="todo-count"><strong><%= pluralize @todos.reject(&:completed).count, "item" %></strong> left</span>
-      <!-- Remove this if you don't implement routing -->
       <ul class="filters">
-        <li>
-          <a class="selected" href="#/">All</a>
-        </li>
-        <li>
-          <a href="#/active">Active</a>
-        </li>
-        <li>
-          <a href="#/completed">Completed</a>
-        </li>
+        <li><%= link_to 'All', '/', class: filter_link_class('/') %></li>
+        <li><%= link_to 'Active', '/?filter=active', class: filter_link_class('/?filter=active') %></li>
+        <li><%= link_to 'Completed', '/?filter=completed', class: filter_link_class('/?filter=completed') %></li>
       </ul>
       <% if @todos.any?(&:completed) %>
         <%= form_tag destroy_many_todos_url, remote: true, method: :delete do |f| %>

@@ -2,7 +2,15 @@ class TodosController < ApplicationController
   before_action :set_todo, only: [:update, :destroy]
 
   def index
-    @todos = Todo.all
+    @todos =
+      case filter_params
+      when 'active'
+        Todo.where(completed: false)
+      when 'completed'
+        Todo.where(completed: true)
+      else
+        Todo.all
+      end
   end
 
   def create
@@ -41,6 +49,11 @@ class TodosController < ApplicationController
     def set_todo
       @todo = Todo.find(params[:id])
     end
+
+    def filter_params
+      params[:filter]
+    end
+    helper_method :filter_params
 
     def todo_params
       params.require(:todo).permit(:text, :completed)
