@@ -16,9 +16,9 @@
     <footer class="footer">
       <span class="todo-count"><strong><%= pluralize @todos.reject(&:completed).count, "item" %></strong> left</span>
       <ul class="filters">
-        <li><%= link_to 'All', '/', class: filter_link_class('/') %></li>
-        <li><%= link_to 'Active', '/?filter=active', class: filter_link_class('/?filter=active') %></li>
-        <li><%= link_to 'Completed', '/?filter=completed', class: filter_link_class('/?filter=completed') %></li>
+        <li><%= link_to 'All', filtered_todos_path, class: filter_link_class('/') %></li>
+        <li><%= link_to 'Active', filtered_todos_path('active'), class: filter_link_class('/active') %></li>
+        <li><%= link_to 'Completed', filtered_todos_path('completed'), class: filter_link_class('/completed') %></li>
       </ul>
       <% if @todos.any?(&:completed) %>
         <%= form_tag destroy_many_todos_url, remote: true, method: :delete do |f| %>

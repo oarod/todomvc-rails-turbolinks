@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     collection do
       patch :update_many
       delete :destroy_many
+      get '(:filter)', to: 'todos#index', as: :filtered
     end
   end
 end
