@@ -5,12 +5,12 @@
       <%= f.text_field :text, class: "new-todo", placeholder: "What needs to be done?", autofocus: true %>
     <% end %>
   </header>
-  <% if @todos.present? || filter_params.present? %>
+  <% if @todos.present? %>
     <section class="main">
       <%= check_box_tag "", "", @todos.all?(&:completed), class: "toggle-all", data: { params: "todo[completed]=#{!@todos.all?(&:completed)}", url: update_many_todos_url, remote: true, method: :patch } %>
       <label for="toggle-all">Mark all as complete</label>
       <ul class="todo-list">
-        <%= render @todos %>
+        <%= render @filtered_todos %>
       </ul>
     </section>
     <footer class="footer">

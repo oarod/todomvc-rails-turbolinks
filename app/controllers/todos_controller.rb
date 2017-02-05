@@ -40,14 +40,15 @@ class TodosController < ApplicationController
     end
 
     def set_todos
-      @todos =
+      @todos = Todo.all.order(created_at: :asc)
+      @filtered_todos =
         case filter_params
         when 'active'
-          Todo.where(completed: false)
+          @todos.reject(&:completed)
         when 'completed'
-          Todo.where(completed: true)
+          @todos.select(&:completed)
         else
-          Todo.all
+          @todos
         end
     end
 
@@ -62,7 +63,6 @@ class TodosController < ApplicationController
     def filter_params
       params[:filter]
     end
-    helper_method :filter_params
 
     def todo_params
       params.require(:todo).permit(:text, :completed)
